@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState,useEffect} from  "react";
+import BasicCard from "./Card";
+import CounterComponent from "./CounterComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+function FunctionalComponent(props){
+    console.log(props);
+     const [render,setRender]= useState(true);
+     const [counter,setCounter]= useState(0);
+     useEffect(()=>{
+       console.log("functional mounting phase")
+     },[])
+     useEffect(()=>{
+       console.log("functional updating phase")
+     },[counter,render])
+
+
+
+  return(
+    <div>
+      <h1>This is {props.componentName}</h1>  <br></br>
+      value: {counter}   <br></br>
+      <button onClick={()=>setRender(!render)}>Mount /Unmount</button> <br></br>
+      <button onClick={()=>setCounter(counter +1)} >Increment</button>   <br></br>
+      <button onClick={()=>setCounter(counter -1)} >Decrement</button>    <br></br>
+      <button onClick={()=>setCounter(0)} >Reset </button>
+      <BasicCard heading="Card content" subheading="subheading is here" adjective=" adjective here"  well="well and kindly" />
+
+      { render ? <CounterComponent componentName={"Class Component"}/> : <></>}
+
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default FunctionalComponent;
